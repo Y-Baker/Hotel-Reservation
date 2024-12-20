@@ -1,0 +1,100 @@
+﻿@page "/guests"
+
+<PageTitle>Guests</PageTitle>
+
+<h3 class="mb-4">Guests View</h3>
+
+@if (_guest is not null)
+{
+    @if (isLoading)
+    {
+        <div class="spinner-border mb-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    }
+    <EditForm Model="@_guest" OnValidSubmit="HandleValidSubmit">
+
+        <FluentValidationValidator />
+
+        <div class="mb-3">
+            <label for="ssn" class="form-label">SSN</label>
+            <InputText class="form-control" @bind-Value="@_guest.Ssn" placeholder="Enter your SSN" />
+        </div>
+
+        <div class="mb-3">
+            <label for="fname" class="form-label">First Name</label>
+            <InputText class="form-control" @bind-Value="@_guest.FName" placeholder="Enter your First Name" />
+        </div>
+
+        <div class="mb-3">
+            <label for="lname" class="form-label">Last Name</label>
+            <InputText class="form-control" @bind-Value="@_guest.LName" placeholder="Enter your Last Name" />
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <InputText type="email" class="form-control" @bind-Value="@_guest.Email" placeholder="Enter your Email" />
+        </div>
+
+        <div class="mb-3">
+            <label for="mobile" class="form-label">Contact Number</label>
+            <InputText class="form-control" @bind-Value="@_guest.ContactNumber" placeholder="Enter your mobile for contact" />
+        </div>
+
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <InputText class="form-control" @bind-Value="@_guest.Address" placeholder="Enter your address" />
+        </div>
+
+
+        <ValidationSummary />
+
+        <div class="mt-4 d-flex justify-content-between group-button">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-dark" @onclick="()=>Clear()">Reset</button>
+        </div>
+    </EditForm>
+}
+
+<h3 class="mt-5">Registered Guests</h3>
+<div class="container mt-5">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">SSN</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Contact Number</th>
+                <th scope="col">Address</th>
+                <th scope="col">Total Booking</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody class="table-dark">
+            @foreach (Guest guest in guests ?? new())
+            {
+                <tr>
+                    <td scope="col">@guest.Ssn</td>
+                    <td scope="col">@guest.FName</td>
+                    <td scope="col">@guest.LName</td>
+                    <td scope="col">@guest.Email</td>
+                    <td scope="col">@guest.ContactNumber</td>
+                    <td scope="col">@guest.Address</td>
+                    <td scope="col">@guest.Bookings.Count</td>
+                    <td scope="col">
+                        <a href="javascript:void(0)" @onclick="()=>EditGuest(guest)" class="m-1">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+                        <a href="javascript:void(0)" @onclick="()=>PrepareForDelete(guest)" class="m-1">
+                            <i class="bi bi-trash3 text-danger"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<Modal @ref="modal" Id="@Guid.NewGuid()" Title="Delete" Message="Are you sure?" OnSave="ConfirmDelete" />
