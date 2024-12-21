@@ -12,7 +12,6 @@ CREATE TABLE Guest (
 CREATE TABLE RoomType (
     RoomTypeID INT PRIMARY KEY IDENTITY(1,1),
     Name VARCHAR(255) NOT NULL UNIQUE,
-    Price DECIMAL(10, 2) NOT NULL,
     Description TEXT
 );
 
