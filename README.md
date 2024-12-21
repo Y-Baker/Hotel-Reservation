@@ -253,15 +253,12 @@ VALUES
 
 ## Project Screens
 Here are some screenshots of the project in action:
-![image]()
 
 ![Screenshot 1](https://github.com/user-attachments/assets/7a1adbb5-1b87-40bc-aa0f-1bf32642dea9)
 *Home Page*
 
 ![Screenshot 2](https://github.com/user-attachments/assets/aff6d256-fea7-4812-976f-382be2aeee10)
 *Model Control*
-
-![image]()
 
 ![Screenshot 3](https://github.com/user-attachments/assets/69c9af38-bf96-4efd-9377-a27af22657a3)
 *Drop List For Database Relations*
