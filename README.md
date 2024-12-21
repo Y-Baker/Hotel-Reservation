@@ -14,7 +14,7 @@ Hotel Reservation System: Track room availability, bookings, guest information, 
 * [Rational Schema](rational-schema.jpg)
 * [Schema](#schema)
 * [Database Seed Data](#seed-data)
-* [End Points](https://github.com/Y-Baker/alx-airbnb-project-documentation/blob/main/user-stories/README.md)
+* [Project Screens](#project-screens)
 * [Authors](#authors-black_nib)
 
 ## Getting Started
