@@ -265,6 +265,7 @@ Here are some screenshots of the project in action:
 
 <br />
 
+
 ## Authors :black_nib:
 * [__Repo__](https://github.com/Y-Baker/Hotel-Reservation)
 * __Yousef Bakier__ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />
