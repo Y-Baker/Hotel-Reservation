@@ -1,0 +1,109 @@
+﻿@page "/book"
+
+<PageTitle>Rooms</PageTitle>
+
+<h3 class="mb-4">Rooms View</h3>
+
+@if (_booking is not null)
+{
+    @if (isLoading)
+    {
+        <div class="spinner-border mb-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    }
+
+    <EditForm Model="@_booking" OnValidSubmit="HandleValidSubmit">
+        <FluentValidationValidator />
+
+        <div class="mb-3">
+            <label for="guest" class="form-label">Guest</label>
+            <InputSelect class="form-control" @bind-Value="@_booking.GuestId">
+                <option value="">Select Guest</option>
+                @foreach (Guest guest in guests ?? new())
+                {
+                    <option value="@guest.Ssn">@($"{guest.FName} {guest.LName}")</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="mb-3">
+            <label for="Room" class="form-label">Room</label>
+            <InputSelect class="form-control" @bind-Value="RoomId">
+                <option value=0>Select Room</option>
+                @foreach (Room room in rooms ?? new())
+                {
+                    <option value="@room.RoomId">@room.RoomNumber</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Check In</label>
+            <InputDate class="form-control" @bind-Value="CheckIn" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Check Out</label>
+            <InputDate class="form-control" @bind-Value="CheckOut" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Total Price</label>
+            <p class="form-control-plaintext">@_booking.TotalAmount.ToString("C")</p>
+        </div>
+
+        <ValidationSummary />
+
+        <div class="mt-4 d-flex justify-content-between group-button">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-dark" @onclick="()=>Clear()">Reset</button>
+        </div>
+    </EditForm>
+
+}
+
+<h3 class="mt-5">Registered Rooms</h3>
+<div class="container mt-5">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Booking Id</th>
+                <th scope="col">Guest Name</th>
+                <th scope="col">Room Number</th>
+                <th scope="col">Check In</th>
+                <th scope="col">Check Out</th>
+                <th scope="col">Confirmed</th>
+                <th scope="col">Total Amount</th>
+                <th scope="col">Booking At</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody class="table-dark">
+            @foreach (Booking booking in bookings ?? new())
+            {
+                <tr>
+                    <td scope="col">@booking.BookingId</td>
+                    <td scope="col">@($"{booking.Guest.FName} {booking.Guest.LName}")</td>
+                    <td scope="col">@booking.Room.RoomNumber</td>
+                    <td scope="col">@booking.CheckIn</td>
+                    <td scope="col">@booking.CheckOut</td>
+                    <td scope="col">@booking.Confirmation</td>
+                    <td scope="col">@booking.TotalAmount</td>
+                    <td scope="col">@booking.CreatedAt</td>
+                    <td scope="col">
+                        <a href="javascript:void(0)" @onclick="()=>Edit(booking)" class="m-1">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+                        <a href="javascript:void(0)" @onclick="()=>PrepareForDelete(booking)" class="m-1">
+                            <i class="bi bi-trash3 text-danger"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<Modal @ref="modal" Id="@Guid.NewGuid()" Title="Delete" Message="Are you sure?" OnSave="ConfirmDelete" />

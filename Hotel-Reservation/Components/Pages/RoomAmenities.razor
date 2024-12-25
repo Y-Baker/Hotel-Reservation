@@ -43,6 +43,8 @@
             <InputNumber class="form-control" @bind-Value="@_roomAmenity.Quantity" />
         </div>
 
+        <ValidationSummary />
+
         <div class="mt-4 d-flex justify-content-between group-button">
             <button type="submit" class="btn btn-primary">Submit</button>
             <button type="reset" class="btn btn-dark" @onclick="()=>Clear()">Reset</button>

@@ -16,7 +16,8 @@ public class BookingConfig : IEntityTypeConfiguration<Booking>
         entity.HasIndex(e => e.RoomId, "idx_booking_room");
 
         entity.Property(e => e.BookingId).HasColumnName("BookingID");
-        entity.Property(e => e.CheckIn).HasDefaultValueSql("(getdate())");
+        entity.Property(e => e.CheckIn).IsRequired().HasDefaultValueSql("(getdate())");
+        entity.Property(e => e.CheckOut).IsRequired().HasDefaultValueSql("(getdate())");
         entity.Property(e => e.Confirmation).HasDefaultValue(false);
         entity.Property(e => e.CreatedAt)
             .HasDefaultValueSql("(getdate())")

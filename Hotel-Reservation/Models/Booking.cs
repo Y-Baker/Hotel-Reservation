@@ -14,9 +14,9 @@ public partial class Booking
 
     public int? RoomId { get; set; }
 
-    public DateOnly CheckIn { get; set; }
+    public DateOnly? CheckIn { get; set; }
 
-    public DateOnly CheckOut { get; set; }
+    public DateOnly? CheckOut { get; set; }
 
     public decimal TotalAmount { get; set; }
 
